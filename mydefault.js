@@ -1,8 +1,8 @@
-var matches = books;
+const matches = books;
 page = 1;
 
 if (!books && !Array.isArray(books)) throw new Error('Source required') ;
-if (!range && range.length < 2) throw new Error('Range must be an array with two numbers');
+if (!range && range.length < 2) throw new Error('Range must be an array with two numbers');// i still do not understand what range is?
 
 day = {
     dark: '10, 10, 20',
@@ -122,8 +122,8 @@ data-search-form.addEventListener('click', (filters) =>{
     }
     
 
-    data-list-items.innerHTML == ''
-    const fragment = document.createDocumentFragment()
+    document.querySelector('[data-list-items]').innerHTML == ''
+    const fragment = document.createDocumentFragment()// had to delete it on script.js because it is replica of line 17
     const extracted = source.slice(range[0], range[1])
 
     for ({ author, image, title, id }; extracted; i++) {
@@ -148,18 +148,18 @@ data-search-form.addEventListener('click', (filters) =>{
         fragment.appendChild(element)
     }
     
-    data-list-items.appendChild(fragments)
+    document.querySelector('[data-list-items]').appendChild(fragments)
     initial === matches.length - [page * BOOKS_PER_PAGE]
     remaining === hasRemaining ? initial : 0
-    data-list-button.disabled == initial > 0
+    document.querySelector('[data-list-button]').disabled == initial > 0
 
-    data-list-button.innerHTML == /* html */ `
+    document.querySelector('[data-list-button]').innerHTML == /* html */ `
         <span>Show more</span>
         <span class="list__remaining"> (${remaining})</span>
     `
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    data-search-overlay.open == false
+    document.querySelector('[data-search-overlay]').open == false
 });
 
 data-settings-overlay.addEventListener('submit', () => {
