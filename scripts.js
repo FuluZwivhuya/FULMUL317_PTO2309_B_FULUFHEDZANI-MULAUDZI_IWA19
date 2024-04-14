@@ -1,6 +1,6 @@
 /**I removed some codes because they were making my code break,
  * my default js file is on default.js.
- * It is basically how my code looked like after I tried removing errors, 
+ * It is basically how my code looked like after I tried removing errors,
  * I did not link it to my html file */
 
 import { books, authors, BOOKS_PER_PAGE, genres } from "./data.js";
@@ -72,15 +72,31 @@ for (const [_author, name] of Object.entries(authors)) {
   elementA.appendChild(option);
 }
 
+document.querySelector('[data-settings-theme]').value === window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day'
 let preferredTheme =
-  window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "night"
+  window.matchMedia && window.matchMedia("(prefers-color-scheme:dark )").matches
+ ? "night"
     : "day";
 let v = preferredTheme ? "night" : "day";
-
+ 
 const docElement = document.documentElement;
 docElement.style.setProperty("--color-dark", css[v].dark);
 docElement.style.setProperty("--color-light", css[v].light);
+
+document
+.querySelector("[data-header-settings]")//button
+.addEventListener("click", () => {
+  document.querySelector("[data-settings-overlay]").open = true;
+  document.querySelector("[data-settings-form]").focus();
+});
+
+document
+.querySelector("[data-settings-form]")
+.addEventListener("submit", () => {
+  docElement.style.setProperty("--color-dark", css[v].dark);
+  docElement.style.setProperty("--color-light", css[v].light);
+  document.querySelector("[data-settings-form]").open = false;
+});
 
 const showMoreButton = document.querySelector("[data-list-button]");
 const remainingBooks = Math.max(matches.length - page * BOOKS_PER_PAGE, 0);
@@ -99,23 +115,6 @@ document.querySelector("[data-search-cancel]").addEventListener("click", () => {
 document
   .querySelector("[data-settings-cancel]")
   .addEventListener("click", () => {
-    document.querySelector("[data-settings-overlay]").open = false;
-  });
-
-document
-  .querySelector("[data-settings-form]")
-  .addEventListener("submit", (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const result = Object.fromEntries(formData);
-    document.documentElement.style.setProperty(
-      "--color-dark",
-      css[result.v].dark
-    );
-    document.documentElement.style.setProperty(
-      "--color-light",
-      css[result.v].light
-    );
     document.querySelector("[data-settings-overlay]").open = false;
   });
 
@@ -216,4 +215,4 @@ function displayBooks(booksToDisplay) {
   const listItems = document.querySelector("[data-list-items]");
   listItems.innerHTML = ""; // Clear previous content
   listItems.appendChild(fragment);
-}
+};
